@@ -1,18 +1,24 @@
 name: Deploy Portfolio
+
 on:
   push:
     branches: ["main"]
+
 permissions:
+  contents: read
   pages: write
   id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/configure-pages@v3
-      - run: echo "Deploying at $(date)" > deployment.log
+
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: '.'
+          path: './'  # Make sure your HTML file (e.g., index.html) is in the root
+
       - uses: actions/deploy-pages@v2
