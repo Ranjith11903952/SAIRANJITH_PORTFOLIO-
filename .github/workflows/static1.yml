@@ -1,4 +1,4 @@
-name: Deploy Portfolio
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -19,6 +19,6 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: './'  # Make sure your HTML file (e.g., index.html) is in the root
+          path: '.'
 
       - uses: actions/deploy-pages@v2
