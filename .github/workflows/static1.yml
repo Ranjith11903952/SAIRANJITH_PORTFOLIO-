@@ -5,31 +5,35 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # Add your own build steps here if needed
-      # For static sites, you might not need anything else
+      # Add your build steps here if needed
+      # This is optional for static HTML
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/upload-artifact@v3  # 🔧 This avoids the missing error
+
       - uses: actions/configure-pages@v3
 
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: '.'  # Make sure your built site (or index.html) is in this directory
+          path: '.'  # Change if your HTML is inside a folder like 'dist/'
 
       - id: deployment
         uses: actions/deploy-pages@v4
